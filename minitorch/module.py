@@ -32,7 +32,7 @@ class Module:
 
     def train(self) -> None:
         "Set the mode of this module and all descendent modules to `train`."
-        queue: Deque = deque()
+        queue: Deque[Module] = deque()
         queue.append(self)
         while len(queue) > 0:
             mod = queue.popleft()
@@ -41,7 +41,7 @@ class Module:
 
     def eval(self) -> None:
         "Set the mode of this module and all descendent modules to `eval`."
-        queue: Deque = deque()
+        queue: Deque[Module] = deque()
         queue.append(self)
         while len(queue) > 0:
             mod = queue.popleft()
@@ -56,8 +56,8 @@ class Module:
         Returns:
             The name and `Parameter` of each ancestor parameter.
         """
-        parameters = []
-        queue: Deque = deque()
+        parameters: Sequence[Parameter] = []
+        queue: Deque[Module] = deque()
         queue.append(([], self))
         while len(queue) > 0:
             path, mod = queue.popleft()
