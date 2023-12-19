@@ -77,7 +77,7 @@ class Module:
     def parameters(self) -> Sequence[Parameter]:
         "Enumerate over all the parameters of this module and its descendents."
         parameters = []
-        for _,v in self.named_parameters():
+        for _, v in self.named_parameters():
             parameters.append(v)
         return parameters
 

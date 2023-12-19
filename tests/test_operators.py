@@ -123,6 +123,7 @@ def test_transitive(a: float, offset1: float, offset2: float) -> None:
     c = b + offset2
     lt(a, b) == 1.0 and lt(b, c) == 1.0 and lt(a, c) == 1.0
 
+
 @pytest.mark.task0_2
 @given(small_floats, small_floats)
 def test_symmetric(a: float, b: float) -> None:

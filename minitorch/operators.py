@@ -185,6 +185,7 @@ def reduce(
         return accumulator
     return reduce_
 
+
 def sum(ls: Iterable[float]) -> float:
     "Sum up a list using `reduce` and `add`."
     return reduce(add, 0.0)(ls)
