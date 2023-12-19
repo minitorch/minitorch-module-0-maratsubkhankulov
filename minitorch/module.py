@@ -57,7 +57,7 @@ class Module:
             The name and `Parameter` of each ancestor parameter.
         """
         parameters = []
-        queue: Deque[Module] = deque()
+        queue: Deque[Tuple[list[str], Module]] = deque()
         queue.append(([], self))
         while len(queue) > 0:
             path, mod = queue.popleft()
