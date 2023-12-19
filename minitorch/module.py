@@ -56,7 +56,7 @@ class Module:
         Returns:
             The name and `Parameter` of each ancestor parameter.
         """
-        parameters: Sequence[Parameter] = []
+        parameters = []
         queue: Deque[Module] = deque()
         queue.append(([], self))
         while len(queue) > 0:
