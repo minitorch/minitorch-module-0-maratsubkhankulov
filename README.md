@@ -6,3 +6,10 @@
 * Docs: https://minitorch.github.io/
 
 * Overview: https://minitorch.github.io/module0.html
+
+![classification diagram](manual_weight_tuning.png "Manual Linear Network")
+
+Weights:
+linear weight 0: -10.0
+linear weight 1: 0.48
+linear bias: 4.68

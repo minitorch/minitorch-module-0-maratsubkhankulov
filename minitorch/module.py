@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Any, Dict, Optional, Sequence, Tuple
+from collections import deque
 
 
 class Module:
@@ -31,13 +32,21 @@ class Module:
 
     def train(self) -> None:
         "Set the mode of this module and all descendent modules to `train`."
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        queue = deque()
+        queue.append(self)
+        while len(queue) > 0:
+            mod = queue.popleft()
+            mod.training = True
+            queue.extend(mod._modules.values())
 
     def eval(self) -> None:
         "Set the mode of this module and all descendent modules to `eval`."
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        queue = deque()
+        queue.append(self)
+        while len(queue) > 0:
+            mod = queue.popleft()
+            mod.training = False
+            queue.extend(mod._modules.values())
 
     def named_parameters(self) -> Sequence[Tuple[str, Parameter]]:
         """
@@ -47,13 +56,30 @@ class Module:
         Returns:
             The name and `Parameter` of each ancestor parameter.
         """
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        parameters = []
+        queue = deque()
+        queue.append(([], self))
+        while len(queue) > 0:
+            path, mod = queue.popleft()
+
+            for k, v in mod._parameters.items():
+                segments = path[:]
+                segments.append(k)
+                param_name = '.'.join(segments)
+                parameters.append((param_name, v))
+
+            for mod_name, submod in mod._modules.items():
+                new_path = path[:]
+                new_path.append(mod_name)
+                queue.append((new_path, submod))
+        return parameters
 
     def parameters(self) -> Sequence[Parameter]:
         "Enumerate over all the parameters of this module and its descendents."
-        # TODO: Implement for Task 0.4.
-        raise NotImplementedError("Need to implement for Task 0.4")
+        parameters = []
+        for _,v in self.named_parameters():
+            parameters.append(v)
+        return parameters
 
     def add_parameter(self, k: str, v: Any) -> Parameter:
         """
